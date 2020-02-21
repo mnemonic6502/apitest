@@ -46,7 +46,7 @@ To get things setup -
 If using the installer script, ensure an Ubuntu based distro (tested Xubuntu 18.x)
 Ensure your user has sudo access to install, NOPASSWD in sudoers will make this easier...
 * run bascompyins.sh
-* sudo -i -u postgres, copy db.out to postgres user, play the dump into fresh postgres db
+* sudo -i -u postgres, copy db.out to postgres user, play the dump into fresh postgres service
 * if running app & db separate, ensure you alter the connection strings mentioned above.
 * ensure restapi.py and valuemod.py are in the same location
 * run ./restapi.py
