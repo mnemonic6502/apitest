@@ -1,11 +1,11 @@
 # apitest
 
 Tools:
-- Choice of OS base, Ubuntu 18.x (no code is specific to this choice, however will need to use differing install syntax than provided in bascompins.sh)
 - postgres
 - Flask
 - psycopg2 module
 - coding Python3
+* tested Ubuntu 18.x OS base, no code is specific to this choice, however will need to use differing install syntax than provided in bascompins.sh setup script.
 
 
 Implementation approach:
@@ -17,12 +17,13 @@ Implementation approach:
 
 Main source provision:
 - bascompins.sh for setup (see below)
-- db.out; a full db dump to populated with expected database, tables and values
+- db.out; a full db dump populated with database, tables and values expected by the valuemod.py app
 - restapi.py; Flask based rest api
-- valuemod.py; 
+- valuemod.py app; selects and updates using psycopg2 to postgres
 
 Other scripts:
 - resetval.py           resets the db value back to zero
+- intsetval.py          set the initial db values, if not replaying the db.out dump during setup
 - testapp1statment.sh   simple loop that logs a number of value increments to a file, useful for testing curls to the api from more than one host
 
 
@@ -46,6 +47,7 @@ If using the installer script, ensure an Ubuntu based distro (tested Xubuntu 18.
 Ensure your user has sudo access to install, NOPASSWD in sudoers will make this easier...
 * run bascompyins.sh
 * sudo -i -u postgres, copy db.out to postgres user, play the dump into fresh postgres service
+  - IMPORTANT NOTE - if setting up the db without replaying the dump, ensure setting the initial value otherwise valuemod.py will error. You can use the intsetval.py to do this.
 * if running app & db separate, ensure you alter the connection strings mentioned above.
 * ensure restapi.py and valuemod.py are in the same location, both should be executable (chmod u+x)
 * run ./restapi.py
