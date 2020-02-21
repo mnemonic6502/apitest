@@ -28,12 +28,24 @@ I ran tests with just enabling the isolation level and no logic, whilst better r
 
 From bascompyins.sh setup script:
 
-# * sudo -i -u postgres
-# * psql -f db.out postgres	you might have to tweek location of db.out
+* sudo -i -u postgres
+* psql -f db.out postgres
 
-# if running a remote DB, remember to change connect strings in the valuemod.py scripts
-# also, will need to uncomment listen_addresses = '*' in /etc/postgresql/10/main/postgresql.conf
-# and add IP's/CIDR netmask under IPv4 local connections as trust in /etc/postgresql/10/main/pg_hba.conf
+if running a remote DB, remember to change app_run connect strings in the valuemod.py scripts
+also, will need to uncomment listen_addresses = '*' in /etc/postgresql/10/main/postgresql.conf
+and add IP's/CIDR netmask under IPv4 local connections as trust in /etc/postgresql/10/main/pg_hba.conf
 
 To get things setup -
-E
+If using the installer script, ensure an Ubuntu based distro (tested Xubuntu 18.x)
+Ensure your user has sudo access to install, NOPASSWD in sudoers will make this easier...
+* run bascompyins.sh
+* sudo -i -u postgres, copy db.out to postgres user, play the dump into fresh postgres db
+* if running app & db separate, ensure you alter the connection strings mentioned above.
+* ensure restapi.py and valuemod.py are in the same location
+* run ./restapi.py
+* send a curl or connect via a browser to *localhost:5000/api/valinc
+- Change *localhost to required IP when api is remote.
+- also /valcheck is an API call that can be run independently to confirm the current value count without incrementing
+
+
+
