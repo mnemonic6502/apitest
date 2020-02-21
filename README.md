@@ -38,9 +38,8 @@ From bascompyins.sh setup script:
 * sudo -i -u postgres
 * psql -f db.out postgres
 
-if running a remote DB, remember to change app_run connect strings in the valuemod.py scripts
-also, will need to uncomment listen_addresses = '*' in /etc/postgresql/10/main/postgresql.conf
-and add IP's/CIDR netmask under IPv4 local connections as trust in /etc/postgresql/10/main/pg_hba.conf
+If you want the api accessible to a remote end point, remember to change app_run connect strings in the valuemod.py scripts; by default is set to localhost, app.run(). Change like this app.run(host='172.31.35.119')
+Also, is segmenting the api from the db localtion, will need to uncomment listen_addresses = '*' in /etc/postgresql/10/main/postgresql.conf and add IP's/CIDR netmask under IPv4 local connections as trust in /etc/postgresql/10/main/pg_hba.conf, with IP(s) of the restapp.
 
 To get things setup -
 If using the installer script, ensure an Ubuntu based distro (tested Xubuntu 18.x)
@@ -48,8 +47,8 @@ Ensure your user has sudo access to install, NOPASSWD in sudoers will make this 
 * run bascompyins.sh
 * sudo -i -u postgres, copy db.out to postgres user, play the dump into fresh postgres service
 * if running app & db separate, ensure you alter the connection strings mentioned above.
-* ensure restapi.py and valuemod.py are in the same location
+* ensure restapi.py and valuemod.py are in the same location, both should be executable (chmod u+x)
 * run ./restapi.py
 * send a curl or connect via a browser to *localhost:5000/api/valinc
-- Change *localhost to required IP when api is remote.
-- also /valcheck is an API call that can be run independently to confirm the current value count without incrementing
+- Change *localhost to required IP when api is remote (see above)
+- also /valcheck is a API call that can be run independently to confirm the current value count without incrementing it
