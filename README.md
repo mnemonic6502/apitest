@@ -45,7 +45,7 @@ Also, is segmenting the api from the db localtion, will need to uncomment listen
 To get things setup -
 If using the installer script, ensure an Ubuntu based distro (tested Xubuntu 18.x)
 Ensure your user has sudo access to install, NOPASSWD in sudoers will make this easier...
-* run bascompyins.sh
+* run bascompyins.sh (read notes in script, due to su script vars are not continued, so add flask, psycopg2 manually, needs resolution)
 * sudo -i -u postgres;
   - copy db.out to postgres user (if problems with access perms copy to /tmp and sudo chown postgres:postgres db.out)
   - play the dump into fresh postgres service (as above, psql -f db.out postgres)
