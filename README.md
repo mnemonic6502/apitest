@@ -2,14 +2,17 @@
 
 Tools:
 - Choice of OS base, Ubuntu 18.x (no code is specific to this choice, however will need to use differing install syntax than provided in bascompins.sh)
-- postgres (only because I have most recent familiarity)
-- Flask (out of the box module, nothing fancy)
-- psycopg module, for communication between python and postgres
+- postgres
+- Flask
+- psycopg2 module
 - coding Python3
 
 
 Implementation approach:
-Flask connector, app and postgres db can be separated to enable differing testing scenario's over hosts. 
+* Flask connector, app and postgres db can be separated to enable differing testing scenario's over hosts. 
+* Database extremely simple, just a pkey and the value stored
+* psycopg2 module, to simplify coding between Python3 and postgres
+* Attempted to utilise postgres SSI to avoid race conditions such as dirty reads etc, set isolation level to ISOLATION_LEVEL_SERIALIZABLE to catch most cases.
 
 
 Main source provision:
@@ -17,6 +20,10 @@ Main source provision:
 - db.out; a full db dump to populated with expected database, tables and values
 - restapi.py; Flask based rest api
 - valuemod.py; 
+
+Other scripts:
+- resetval.py           resets the db value back to zero
+- testapp1statment.sh   simple loop that logs a number of value increments to a file, useful for testing curls to the api from more than one host
 
 
 To be completed:
@@ -46,6 +53,3 @@ Ensure your user has sudo access to install, NOPASSWD in sudoers will make this 
 * send a curl or connect via a browser to *localhost:5000/api/valinc
 - Change *localhost to required IP when api is remote.
 - also /valcheck is an API call that can be run independently to confirm the current value count without incrementing
-
-
-
